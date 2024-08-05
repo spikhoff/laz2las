@@ -1,20 +1,23 @@
 import sys
 import os
+import glob
 import laspy
 
-# Get the input file name with path
-input_file = sys.argv[1]
+# Get all LAZ files in the current directory
+laz_files = glob.glob("*.laz")
 
-# Extract the file name without extension
-file_name, _ = os.path.splitext(input_file)
+for laz_file in laz_files:
+  # Extract filename without extension
+  file_name, _ = os.path.splitext(laz_file)
 
-# Create the output file path with .las extension
-output_file = f"{file_name}.las"
+  # Create output file path with .las extension
+  output_file = f"{file_name}.las"
 
-# Read the LAZ file
-las = laspy.read(input_file)
+  # Read LAZ file
+  las = laspy.read(laz_file)
 
-# Write the LAZ data to the LAS file
-las.write(output_file)
+  # Write LAS file
+  las.write(output_file)
 
-print(f"Converted {input_file} to {output_file}")
+  print(f"Converted {laz_file} to {output_file}")
+  
